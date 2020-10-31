@@ -27,6 +27,14 @@ public class BasketImpl implements Basket {
     public void addProduct(Product product) {
         productBasket.add(product);
     }
+
+    @Override
+    public BigDecimal getTotalNetPrice() {
+        double doubleTotalNetPrice = getProducts().stream().mapToDouble(product -> product.getPrice().doubleValue()).sum();
+        BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
+        return bigDTotalNetPrice;
+    }
+
     private BigDecimal getRandomPrice(int lowest, int highest){
         return BigDecimal.valueOf(Math.random() * ((highest-lowest) +1) + lowest);
 

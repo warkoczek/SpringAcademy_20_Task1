@@ -3,16 +3,17 @@ package pl.warkoczewski.SpringAcademy_20_Task1.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Discount;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Tax;
-import pl.warkoczewski.SpringAcademy_20_Task1.repository.ShopPlus;
 import pl.warkoczewski.SpringAcademy_20_Task1.repository.ShopPro;
 
 import java.math.BigDecimal;
 
 @Component
+@Profile("PRO")
 public class ShopProImpl implements ShopPro {
 
     private BasketImpl basket;
@@ -27,10 +28,9 @@ public class ShopProImpl implements ShopPro {
     @Override
     @EventListener(ApplicationReadyEvent.class)
     public void getTotalGrossPrice() {
-        double doubleTotalNetPrice = basket.getProducts().stream().mapToDouble(product -> product.getPrice().doubleValue()).sum();
-        BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
+        BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
         BigDecimal totalGrossPrice = bigDTotalNetPrice.multiply(tax.getTaxValue()).add(bigDTotalNetPrice);
-        System.out.println("Shop Pro" + " " + totalGrossPrice);
+        System.out.println("Shop Pro Total Gross Price" + " " + totalGrossPrice);
     }
 
     @Override
@@ -40,6 +40,6 @@ public class ShopProImpl implements ShopPro {
         BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
         BigDecimal discountableSum = bigDTotalNetPrice.subtract(bigDTotalNetPrice.multiply(discount.getDiscountValue()));
         BigDecimal discountableGrossSum = discountableSum.add(discountableSum.multiply(tax.getTaxValue()));
-        System.out.println("Shop Pro" + " " + discountableGrossSum);
+        System.out.println("Shop Pro Discountable Total Gross Price" + " " + discountableGrossSum);
     }
 }
