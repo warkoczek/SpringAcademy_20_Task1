@@ -15,17 +15,22 @@ import java.math.BigDecimal;
 @Component
 public class ShopProImpl implements ShopPro {
 
-
     private BasketImpl basket;
-    private ShopPlusImpl shopPlus;
     private Discount discount;
     private Tax tax;
     @Autowired
-    public ShopProImpl(BasketImpl basket, Discount discount, Tax tax, ShopPlusImpl shopPlus) {
+    public ShopProImpl(BasketImpl basket, Discount discount, Tax tax) {
         this.basket = basket;
         this.discount = discount;
         this.tax = tax;
-        this.shopPlus = shopPlus;
+    }
+    @Override
+    @EventListener(ApplicationReadyEvent.class)
+    public void getTotalGrossPrice() {
+        double doubleTotalNetPrice = basket.getProducts().stream().mapToDouble(product -> product.getPrice().doubleValue()).sum();
+        BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
+        BigDecimal totalGrossPrice = bigDTotalNetPrice.multiply(tax.getTaxValue()).add(bigDTotalNetPrice);
+        System.out.println("Shop Pro" + " " + totalGrossPrice);
     }
 
     @Override
