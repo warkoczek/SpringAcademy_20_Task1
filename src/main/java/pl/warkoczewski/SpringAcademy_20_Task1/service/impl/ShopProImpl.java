@@ -1,18 +1,19 @@
-package pl.warkoczewski.SpringAcademy_20_Task1.repository.impl;
+package pl.warkoczewski.SpringAcademy_20_Task1.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Discount;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Tax;
-import pl.warkoczewski.SpringAcademy_20_Task1.repository.ShopPro;
+import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.BasketImpl;
+import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopPro;
 
 import java.math.BigDecimal;
 
-@Component
+@Service
 @Profile("PRO")
 public class ShopProImpl implements ShopPro {
 
