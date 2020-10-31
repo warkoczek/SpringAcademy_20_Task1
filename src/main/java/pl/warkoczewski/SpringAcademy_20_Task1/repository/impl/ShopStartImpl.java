@@ -13,9 +13,9 @@ import java.math.BigDecimal;
 
 @Component
 public class ShopStartImpl implements ShopStart {
-    @Autowired
-    private BasketImpl basket;
 
+    private BasketImpl basket;
+    @Autowired
     public ShopStartImpl(BasketImpl basket) {
         this.basket = basket;
     }
@@ -23,9 +23,9 @@ public class ShopStartImpl implements ShopStart {
     @Override
     @EventListener(ApplicationReadyEvent.class)
     public void getTotalPrice() {
-        double sum = basket.getProducts().stream().mapToDouble(product -> product.getPrice().doubleValue()).sum();
-        BigDecimal sumBD = BigDecimal.valueOf(sum);
-        System.out.println(sumBD);
+        double doubleTotalNetPrice = basket.getProducts().stream().mapToDouble(product -> product.getPrice().doubleValue()).sum();
+        BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
+        System.out.println("Shop Start" + " " + bigDTotalNetPrice);
     }
 
 
