@@ -3,36 +3,34 @@ package pl.warkoczewski.SpringAcademy_20_Task1.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
+
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Product;
 import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.BasketImpl;
-import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopStart;
+import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopStartService;
 
 import java.math.BigDecimal;
 
 @Service
 @Profile("START")
-public class ShopStartImpl implements ShopStart {
+public class ShopStartServiceImpl implements ShopStartService {
 
     private BasketImpl basket;
     @Autowired
-    public ShopStartImpl(BasketImpl basket) {
+    public ShopStartServiceImpl(BasketImpl basket) {
         this.basket = basket;
     }
 
     @Override
     public void addProduct(Product product) {
-        basket.add(product);
+        basket.addProduct(product);
     }
 
     @Override
     @EventListener(ApplicationReadyEvent.class)
     public void getTotalPrice() {
-        BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
-        System.out.println("Shop Start TotalPrice" + " " + bigDTotalNetPrice);
+        BigDecimal total = basket.getTotalNetPrice();
+        System.out.println("Shop Start" + " " + total);
     }
-
-
-
 }

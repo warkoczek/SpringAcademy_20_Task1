@@ -7,29 +7,43 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Discount;
+import pl.warkoczewski.SpringAcademy_20_Task1.domain.Product;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Tax;
 import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.BasketImpl;
-import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopPro;
+import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopProService;
 
 import java.math.BigDecimal;
 
 @Service
 @Profile("PRO")
-public class ShopProImpl implements ShopPro {
+public class ShopProServiceImpl implements ShopProService {
 
     private BasketImpl basket;
-    private ShopStartImpl shopStart;
-    private ShopPlusImpl shopPlus;
     private Discount discount;
     private Tax tax;
 
-
-    public ShopProImpl(BasketImpl basket, ShopStartImpl shopStart, ShopPlusImpl shopPlus, Discount discount, Tax tax) {
+    @Autowired
+    public ShopProServiceImpl(BasketImpl basket, Discount discount, Tax tax) {
         this.basket = basket;
-        this.shopStart = shopStart;
-        this.shopPlus = shopPlus;
         this.discount = discount;
         this.tax = tax;
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        basket.getTotalNetPrice();
+    }
+
+    @Override
+    public void getTotalPrice() {
+        System.out.println("Shop Pro - Start:" + " " + basket.getTotalNetPrice());;
+    }
+
+    @Override
+    public void getTotalGrossPrice() {
+        BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
+        BigDecimal totalGrossPrice = bigDTotalNetPrice.multiply(tax.getTaxValue()).add(bigDTotalNetPrice);
+        System.out.println("Shop Pro - Plus" + " " + totalGrossPrice);
     }
 
     @Override
@@ -39,8 +53,8 @@ public class ShopProImpl implements ShopPro {
         BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
         BigDecimal discountableSum = bigDTotalNetPrice.subtract(bigDTotalNetPrice.multiply(discount.getDiscountValue()));
         BigDecimal discountableGrossSum = discountableSum.add(discountableSum.multiply(tax.getTaxValue()));
-        shopStart.getTotalPrice();
-        shopPlus.getTotalGrossPrice();
+        getTotalPrice();
+        getTotalGrossPrice();
         System.out.println("Shop Pro Discountable Total Gross Price" + " " + discountableGrossSum);
     }
 }
