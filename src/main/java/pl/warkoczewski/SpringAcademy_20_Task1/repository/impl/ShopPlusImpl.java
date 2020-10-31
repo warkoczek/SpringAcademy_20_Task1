@@ -4,9 +4,9 @@ import pl.warkoczewski.SpringAcademy_20_Task1.repository.ShopPlus;
 
 import java.math.BigDecimal;
 
-public class InMemoryShopPlusImpl implements ShopPlus {
+public class ShopPlusImpl implements ShopPlus {
 
-    private InMemoryShopStartImpl basketStart;
+    private ShopStartImpl basketStart;
     @Override
     public BigDecimal getTotalGrossPrice(BigDecimal tax) {
 

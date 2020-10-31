@@ -12,11 +12,11 @@ import java.math.BigDecimal;
 
 
 @Component
-public class InMemoryShopStartImpl implements ShopStart {
+public class ShopStartImpl implements ShopStart {
     @Autowired
     private BasketImpl basket;
 
-    public InMemoryShopStartImpl(BasketImpl basket) {
+    public ShopStartImpl(BasketImpl basket) {
         this.basket = basket;
     }
 

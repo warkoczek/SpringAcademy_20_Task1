@@ -1,4 +1,4 @@
 package pl.warkoczewski.SpringAcademy_20_Task1.repository.impl;
 
-public class InMemoryShopPro {
+public class ShopProImpl {
 }
