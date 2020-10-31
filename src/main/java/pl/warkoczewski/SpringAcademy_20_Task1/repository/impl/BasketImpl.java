@@ -25,7 +25,7 @@ public class BasketImpl implements Basket {
     }
 
     @Override
-    public void addProduct(Product product) {
+    public void add(Product product) {
         productBasket.add(product);
     }
 

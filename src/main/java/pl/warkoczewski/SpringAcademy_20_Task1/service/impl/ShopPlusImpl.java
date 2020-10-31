@@ -14,18 +14,22 @@ import java.math.BigDecimal;
 public class ShopPlusImpl implements ShopPlus {
 
     private BasketImpl basket;
+    private ShopStartImpl shopStart;
     private Tax tax;
     @Autowired
-    public ShopPlusImpl(BasketImpl basket, Tax tax) {
+    public ShopPlusImpl(BasketImpl basket, ShopStartImpl shopStart, Tax tax) {
         this.basket = basket;
+        this.shopStart = shopStart;
         this.tax = tax;
     }
+
 
     @Override
     @EventListener(ApplicationReadyEvent.class)
     public void getTotalGrossPrice() {
         BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
         BigDecimal totalGrossPrice = bigDTotalNetPrice.multiply(tax.getTaxValue()).add(bigDTotalNetPrice);
+        shopStart.getTotalPrice();
         System.out.println("Shop Plus" + " " + totalGrossPrice);
     }
 }

@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface Basket {
     ArrayList<Product> getProducts();
-    void addProduct(Product product);
+    void add(Product product);
     BigDecimal getTotalNetPrice();
 }

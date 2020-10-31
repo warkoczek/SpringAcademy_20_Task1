@@ -5,12 +5,11 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import pl.warkoczewski.SpringAcademy_20_Task1.domain.Product;
 import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.BasketImpl;
 import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopStart;
 
 import java.math.BigDecimal;
-
-
 
 @Service
 @Profile("START")
@@ -23,10 +22,15 @@ public class ShopStartImpl implements ShopStart {
     }
 
     @Override
+    public void addProduct(Product product) {
+        basket.add(product);
+    }
+
+    @Override
     @EventListener(ApplicationReadyEvent.class)
     public void getTotalPrice() {
         BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
-        System.out.println("Shop Start" + " " + bigDTotalNetPrice);
+        System.out.println("Shop Start TotalPrice" + " " + bigDTotalNetPrice);
     }
 
 

@@ -18,20 +18,18 @@ import java.math.BigDecimal;
 public class ShopProImpl implements ShopPro {
 
     private BasketImpl basket;
+    private ShopStartImpl shopStart;
+    private ShopPlusImpl shopPlus;
     private Discount discount;
     private Tax tax;
-    @Autowired
-    public ShopProImpl(BasketImpl basket, Discount discount, Tax tax) {
+
+
+    public ShopProImpl(BasketImpl basket, ShopStartImpl shopStart, ShopPlusImpl shopPlus, Discount discount, Tax tax) {
         this.basket = basket;
+        this.shopStart = shopStart;
+        this.shopPlus = shopPlus;
         this.discount = discount;
         this.tax = tax;
-    }
-    @Override
-    @EventListener(ApplicationReadyEvent.class)
-    public void getTotalGrossPrice() {
-        BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
-        BigDecimal totalGrossPrice = bigDTotalNetPrice.multiply(tax.getTaxValue()).add(bigDTotalNetPrice);
-        System.out.println("Shop Pro Total Gross Price" + " " + totalGrossPrice);
     }
 
     @Override
@@ -41,6 +39,8 @@ public class ShopProImpl implements ShopPro {
         BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
         BigDecimal discountableSum = bigDTotalNetPrice.subtract(bigDTotalNetPrice.multiply(discount.getDiscountValue()));
         BigDecimal discountableGrossSum = discountableSum.add(discountableSum.multiply(tax.getTaxValue()));
+        shopStart.getTotalPrice();
+        shopPlus.getTotalGrossPrice();
         System.out.println("Shop Pro Discountable Total Gross Price" + " " + discountableGrossSum);
     }
 }
