@@ -1,6 +1,5 @@
 package pl.warkoczewski.SpringAcademy_20_Task1.repository.impl;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Product;
 import pl.warkoczewski.SpringAcademy_20_Task1.repository.Basket;

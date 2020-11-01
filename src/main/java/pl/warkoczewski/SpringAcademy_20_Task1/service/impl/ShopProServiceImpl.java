@@ -49,12 +49,11 @@ public class ShopProServiceImpl implements ShopProService {
     @Override
     @EventListener(ApplicationReadyEvent.class)
     public void getDiscountableTotalGrossPrice() {
-        double doubleTotalNetPrice = basket.getProducts().stream().mapToDouble(product -> product.getPrice().doubleValue()).sum();
-        BigDecimal bigDTotalNetPrice = BigDecimal.valueOf(doubleTotalNetPrice);
-        BigDecimal discountableSum = bigDTotalNetPrice.subtract(bigDTotalNetPrice.multiply(discount.getDiscountValue()));
-        BigDecimal discountableGrossSum = discountableSum.add(discountableSum.multiply(tax.getTaxValue()));
+        BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
+        BigDecimal discountableTotalNetPrice = bigDTotalNetPrice.subtract(bigDTotalNetPrice.multiply(discount.getDiscountValue()));
+        BigDecimal discountableTotalGrossPrice = discountableTotalNetPrice.add(discountableTotalNetPrice.multiply(tax.getTaxValue()));
         getTotalPrice();
         getTotalGrossPrice();
-        System.out.println("Shop Pro Discountable Total Gross Price" + " " + discountableGrossSum);
+        System.out.println("Shop Pro Discountable Total Gross Price" + " " + discountableTotalGrossPrice);
     }
 }
