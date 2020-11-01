@@ -1,4 +1,5 @@
 package pl.warkoczewski.SpringAcademy_20_Task1.service.impl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +13,7 @@ import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopPlusService;
 import java.math.BigDecimal;
 @Service
 @Profile("PLUS")
+@Slf4j
 public class ShopPlusServiceImpl implements ShopPlusService {
 
     private BasketImpl basket;
@@ -29,7 +31,7 @@ public class ShopPlusServiceImpl implements ShopPlusService {
 
     @Override
     public void getTotalPrice() {
-        System.out.println("Shop Plus - Start:" + " " + basket.getTotalNetPrice());;
+        log.debug("Shop Plus - Start(Net Price): {}",basket.getTotalNetPrice());
     }
 
     @Override
@@ -38,6 +40,6 @@ public class ShopPlusServiceImpl implements ShopPlusService {
         BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
         BigDecimal totalGrossPrice = bigDTotalNetPrice.multiply(tax.getTaxValue()).add(bigDTotalNetPrice);
         getTotalPrice();
-        System.out.println("Shop Plus Taxable:" + " " + totalGrossPrice);
+        log.debug("Shop Plus - Plus(Gross Price): {}",totalGrossPrice);
     }
 }

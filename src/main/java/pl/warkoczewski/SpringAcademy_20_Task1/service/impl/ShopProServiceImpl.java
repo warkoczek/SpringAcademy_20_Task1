@@ -1,6 +1,7 @@
 package pl.warkoczewski.SpringAcademy_20_Task1.service.impl;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 
 @Service
 @Profile("PRO")
+@Slf4j
 public class ShopProServiceImpl implements ShopProService {
 
     private BasketImpl basket;
@@ -36,14 +38,14 @@ public class ShopProServiceImpl implements ShopProService {
 
     @Override
     public void getTotalPrice() {
-        System.out.println("Shop Pro - Start:" + " " + basket.getTotalNetPrice());;
+        log.debug("Shop Pro - Start(Net Price): {}",basket.getTotalNetPrice());
     }
 
     @Override
     public void getTotalGrossPrice() {
         BigDecimal bigDTotalNetPrice = basket.getTotalNetPrice();
         BigDecimal totalGrossPrice = bigDTotalNetPrice.multiply(tax.getTaxValue()).add(bigDTotalNetPrice);
-        System.out.println("Shop Pro - Plus" + " " + totalGrossPrice);
+        log.debug("Shop Pro - Plus(Gross Price): {}",totalGrossPrice);
     }
 
     @Override
@@ -54,6 +56,6 @@ public class ShopProServiceImpl implements ShopProService {
         BigDecimal discountableTotalGrossPrice = discountableTotalNetPrice.add(discountableTotalNetPrice.multiply(tax.getTaxValue()));
         getTotalPrice();
         getTotalGrossPrice();
-        System.out.println("Shop Pro Discountable Total Gross Price" + " " + discountableTotalGrossPrice);
+        log.debug("Shop Pro - Pro(Discount Price): {}", discountableTotalGrossPrice);
     }
 }

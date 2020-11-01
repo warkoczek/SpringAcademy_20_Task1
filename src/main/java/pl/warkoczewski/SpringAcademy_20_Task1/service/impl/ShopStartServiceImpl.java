@@ -30,8 +30,9 @@ public class ShopStartServiceImpl implements ShopStartService {
     }
 
     @Override
+    @EventListener(ApplicationReadyEvent.class)
     public void getTotalPrice() {
         BigDecimal total = basket.getTotalNetPrice();
-        log.debug("Shop Start Net Price: {}", total );
+        log.debug("Shop Start(Net Price): {}", total );
     }
 }
