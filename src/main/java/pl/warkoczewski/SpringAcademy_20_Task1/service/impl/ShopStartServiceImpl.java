@@ -1,5 +1,6 @@
 package pl.warkoczewski.SpringAcademy_20_Task1.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 
 @Service
 @Profile("START")
+@Slf4j
 public class ShopStartServiceImpl implements ShopStartService {
 
     private BasketImpl basket;
@@ -28,9 +30,8 @@ public class ShopStartServiceImpl implements ShopStartService {
     }
 
     @Override
-    @EventListener(ApplicationReadyEvent.class)
     public void getTotalPrice() {
         BigDecimal total = basket.getTotalNetPrice();
-        System.out.println("Shop Start" + " " + total);
+        log.debug("Shop Start Net Price: {}", total );
     }
 }
