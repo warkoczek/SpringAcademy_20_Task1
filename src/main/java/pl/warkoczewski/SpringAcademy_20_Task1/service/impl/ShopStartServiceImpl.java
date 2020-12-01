@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Product;
-import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.BasketImpl;
+import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.CartImpl;
 import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopStartService;
 
 import java.math.BigDecimal;
@@ -18,9 +18,9 @@ import java.math.BigDecimal;
 @Slf4j
 public class ShopStartServiceImpl implements ShopStartService {
 
-    private BasketImpl basket;
+    private CartImpl basket;
     @Autowired
-    public ShopStartServiceImpl(BasketImpl basket) {
+    public ShopStartServiceImpl(CartImpl basket) {
         this.basket = basket;
     }
 

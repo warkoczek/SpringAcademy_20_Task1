@@ -7,7 +7,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Product;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Tax;
-import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.BasketImpl;
+import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.CartImpl;
 import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopPlusService;
 
 import java.math.BigDecimal;
@@ -16,10 +16,10 @@ import java.math.BigDecimal;
 @Slf4j
 public class ShopPlusServiceImpl implements ShopPlusService {
 
-    private BasketImpl basket;
+    private CartImpl basket;
     private Tax tax;
     @Autowired
-    public ShopPlusServiceImpl(BasketImpl basket, Tax tax) {
+    public ShopPlusServiceImpl(CartImpl basket, Tax tax) {
         this.basket = basket;
         this.tax = tax;
     }

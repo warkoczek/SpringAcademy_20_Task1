@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Discount;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Product;
 import pl.warkoczewski.SpringAcademy_20_Task1.domain.Tax;
-import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.BasketImpl;
+import pl.warkoczewski.SpringAcademy_20_Task1.repository.impl.CartImpl;
 import pl.warkoczewski.SpringAcademy_20_Task1.service.ShopProService;
 
 import java.math.BigDecimal;
@@ -20,12 +20,12 @@ import java.math.BigDecimal;
 @Slf4j
 public class ShopProServiceImpl implements ShopProService {
 
-    private BasketImpl basket;
+    private CartImpl basket;
     private Discount discount;
     private Tax tax;
 
     @Autowired
-    public ShopProServiceImpl(BasketImpl basket, Discount discount, Tax tax) {
+    public ShopProServiceImpl(CartImpl basket, Discount discount, Tax tax) {
         this.basket = basket;
         this.discount = discount;
         this.tax = tax;
